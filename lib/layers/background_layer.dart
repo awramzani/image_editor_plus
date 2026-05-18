@@ -5,12 +5,14 @@ import 'package:image_editor_plus/data/layer.dart';
 class BackgroundLayer extends StatefulWidget {
   final BackgroundLayerData layerData;
   final VoidCallback? onUpdate;
+  final bool editable;
 
   const BackgroundLayer({
-    Key? key,
+    super.key,
     required this.layerData,
     this.onUpdate,
-  }) : super(key: key);
+    this.editable = false,
+  });
 
   @override
   State<BackgroundLayer> createState() => _BackgroundLayerState();
@@ -20,11 +22,11 @@ class _BackgroundLayerState extends State<BackgroundLayer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.layerData.file.width.toDouble(),
-      height: widget.layerData.file.height.toDouble(),
+      width: widget.layerData.image.width.toDouble(),
+      height: widget.layerData.image.height.toDouble(),
       // color: black,
       padding: EdgeInsets.zero,
-      child: Image.memory(widget.layerData.file.image),
+      child: Image.memory(widget.layerData.image.bytes),
     );
   }
 }
