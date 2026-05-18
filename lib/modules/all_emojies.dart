@@ -4,7 +4,7 @@ import 'package:image_editor_plus/data/layer.dart';
 import 'package:image_editor_plus/image_editor_plus.dart';
 
 class Emojies extends StatefulWidget {
-  const Emojies({Key? key}) : super(key: key);
+  const Emojies({super.key});
 
   @override
   createState() => _EmojiesState();
@@ -39,7 +39,6 @@ class _EmojiesState extends State<Emojies> {
                 style: const TextStyle(color: Colors.white),
               ),
             ]),
-            const Divider(height: 1),
             const SizedBox(height: 16),
             Container(
               height: 315,
@@ -66,6 +65,7 @@ class _EmojiesState extends State<Emojies> {
                     },
                     child: Container(
                       padding: EdgeInsets.zero,
+                      alignment: Alignment.center,
                       child: Text(
                         emoji,
                         style: const TextStyle(fontSize: 35),

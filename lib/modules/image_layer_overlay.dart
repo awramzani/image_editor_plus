@@ -8,11 +8,11 @@ class ImageLayerOverlay extends StatefulWidget {
   final Function onUpdate;
 
   const ImageLayerOverlay({
-    Key? key,
+    super.key,
     required this.layerData,
     required this.index,
     required this.onUpdate,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _ImageLayerOverlayState();
@@ -46,7 +46,6 @@ class _ImageLayerOverlayState extends State<ImageLayerOverlay> {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          const Divider(),
           Slider(
               activeColor: Colors.white,
               inactiveColor: Colors.grey,

@@ -45,7 +45,7 @@ class BarColorPicker extends StatefulWidget {
   final Color initialColor;
 
   const BarColorPicker({
-    Key? key,
+    super.key,
     this.pickMode = PickMode.color,
     this.horizontal = true,
     this.width = 200,
@@ -54,7 +54,7 @@ class BarColorPicker extends StatefulWidget {
     this.initialColor = const Color(0xffff0000),
     this.thumbColor = Colors.black,
     required this.colorListener,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _BarColorPickerState();
@@ -193,12 +193,12 @@ class _BarColorPickerState extends State<BarColorPicker> {
     switch (widget.pickMode) {
       case PickMode.color:
         var color = HSVColor.fromAHSV(1.0, percent * 360, 1.0, 1.0).toColor();
-        widget.colorListener(color.value);
+        widget.colorListener(color.toARGB32());
         break;
       case PickMode.grey:
         final channel = (0xff * percent).toInt();
         widget.colorListener(
-            Color.fromARGB(0xff, channel, channel, channel).value);
+            Color.fromARGB(0xff, channel, channel, channel).toARGB32());
         break;
     }
   }
@@ -223,13 +223,13 @@ class CircleColorPicker extends StatefulWidget {
   final Color initialColor;
 
   const CircleColorPicker({
-    Key? key,
+    super.key,
     this.radius = 120,
     this.initialColor = const Color(0xffff0000),
     this.thumbColor = Colors.black,
     this.thumbRadius = 8,
     required this.colorListener,
-  }) : super(key: key);
+  });
 
   @override
   State<CircleColorPicker> createState() {
@@ -334,7 +334,8 @@ class _CircleColorPickerState extends State<CircleColorPicker> {
     var theta = atan2(deltaX, deltaY);
     var degree = 270 - radiansToDegrees(theta);
     if (degree < 0) degree = 360 + degree;
-    widget.colorListener(HSVColor.fromAHSV(1, degree, 1, 1).toColor().value);
+    widget
+        .colorListener(HSVColor.fromAHSV(1, degree, 1, 1).toColor().toARGB32());
     setState(() {
       thumbDistanceToCenter = min(distanceToCenter, widget.radius);
       thumbRadians = theta;

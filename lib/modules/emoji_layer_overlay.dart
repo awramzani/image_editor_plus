@@ -8,11 +8,11 @@ class EmojiLayerOverlay extends StatefulWidget {
   final Function onUpdate;
 
   const EmojiLayerOverlay({
-    Key? key,
+    super.key,
     required this.layer,
     required this.index,
     required this.onUpdate,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _EmojiLayerOverlayState();
@@ -46,7 +46,6 @@ class _EmojiLayerOverlayState extends State<EmojiLayerOverlay> {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          const Divider(),
           Slider(
               activeColor: Colors.white,
               inactiveColor: Colors.grey,
