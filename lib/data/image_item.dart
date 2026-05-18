@@ -1,56 +1,63 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:image_editor_plus/image_editor_plus.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageItem {
-  int width = 300;
-  int height = 300;
-  Uint8List image = Uint8List.fromList([]);
-  double viewportRatio = 1;
-  Completer loader = Completer();
+  int width = 1;
+  int height = 1;
+  Uint8List bytes = Uint8List.fromList([]);
+  Completer<bool> loader = Completer<bool>();
 
-  ImageItem([dynamic img]) {
-    if (img != null) load(img);
+  ImageItem([dynamic image]) {
+    if (image != null) load(image);
   }
 
-  Future get status => loader.future;
+  Future load(dynamic image) async {
+    loader = Completer<bool>();
 
-  Future load(dynamic imageFile) async {
-    loader = Completer();
+    if (image is ImageItem) {
+      bytes = image.bytes;
 
-    dynamic decodedImage;
+      height = image.height;
+      width = image.width;
 
-    if (imageFile is ImageItem) {
-      height = imageFile.height;
-      width = imageFile.width;
-
-      image = imageFile.image;
-      viewportRatio = imageFile.viewportRatio;
-
-      loader.complete(true);
-    } else if (imageFile is File || imageFile is XFile) {
-      image = await imageFile.readAsBytes();
-      decodedImage = await decodeImageFromList(image);
-    } else {
-      image = imageFile;
-      decodedImage = await decodeImageFromList(imageFile);
-    }
-
-    // image was decoded
-    if (decodedImage != null) {
-      // print(['height', viewportSize.height, decodedImage.height]);
-      // print(['width', viewportSize.width, decodedImage.width]);
+      return loader.complete(true);
+    } else if (image is Uint8List) {
+      bytes = image;
+      var decodedImage = await decodeImageFromList(bytes);
 
       height = decodedImage.height;
       width = decodedImage.width;
-      viewportRatio = viewportSize.height / height;
 
-      loader.complete(decodedImage);
+      return loader.complete(true);
+    } else if (image is XFile) {
+      bytes = await image.readAsBytes();
+      var decodedImage = await decodeImageFromList(bytes);
+
+      height = decodedImage.height;
+      width = decodedImage.width;
+
+      return loader.complete(true);
+    } else {
+      return loader.complete(false);
     }
+  }
 
-    return true;
+  static ImageItem fromJson(Map json) {
+    var image = ImageItem(json['bytes']);
+
+    image.width = json['width'];
+    image.height = json['height'];
+
+    return image;
+  }
+
+  Map toJson() {
+    return {
+      'height': height,
+      'width': width,
+      'bytes': bytes,
+    };
   }
 }
