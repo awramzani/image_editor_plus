@@ -1,3 +1,67 @@
+## 1.0.8
+
+* Lower bound dependencies updated
+
+## 1.0.7
+
+* Dependencies updated
+
+## 1.0.6
+
+* Migrated from flutter_colorpicker to flex_color_picker
+* Aspect ratio reversible option added to ImageCropper
+* Removed global key use
+
+## 1.0.5
+
+* Permission check for Photos and Camera
+
+## 1.0.4
+
+* LayersViewer class added
+* OutputFormat option added to ImageEditor
+
+## 1.0.3
+
+* Web support fixes
+
+## 1.0.2
+
+* initial web support
+
+## 1.0.1
+
+* added layers management and reorder overlay screen
+* dropped dependency image_editor
+
+## 1.0.0
+
+* Breaking changes: ImageEditor class have multiple option like cropOption for crop releated setting.
+* Passing null to any option will disable that feature like cropOption: null will disable crop feature.
+
+## 0.2.6
+
+* Bug fixes
+
+## 0.2.5
+
+* Ratio options can be provided in ImageEditor as well as in ImageCropper
+
+## 0.2.4
+
+* Ratio options can be provided in constructor
+* Allowed feature list can be provided in constructor
+* Image compress height & width parameter added
+
+## 0.2.3
+
+* Bug fixes
+
+## 0.2.2
+
+* Dependencies updated
+* Bug fixes
+
 ## 0.2.1
 
 * Dependencies updated
